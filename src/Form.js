@@ -1,16 +1,17 @@
-const Form=({obj,setObj,setArr,update,setUpdate,arr})=>{
+import {useDispatch } from "react-redux";
+import {created,updated} from "./app/Slice"
+
+
+const Form=({obj,setObj,update,setUpdate})=>{
+    const dispatch=useDispatch();
     const handleSubmit=(e)=>{
         e.preventDefault();
         if(update!==null){
-            const filter=arr.map((e,id)=>{
-                if(update===id) return obj;
-                else return e;
-            })
-            setArr(filter)
+            dispatch(updated({id:update,obj:obj}))
             setUpdate(null);
         }
         else{
-            setArr([...arr,obj])
+            dispatch(created(obj))
         }
         setObj({first:"",last:"",email:"",roll:""})
     }
